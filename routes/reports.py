@@ -6,12 +6,12 @@ from database import SessionLocal
 from models.lost_item import LostItem
 from models.found_item import FoundItem
 from models.claim import Claim
+from services.matching_service import is_match
 
 router = APIRouter(
     prefix="/reports",
     tags=["Reports"]
 )
-
 
 def get_db():
 
@@ -34,7 +34,6 @@ def total_lost_items():
         db.query(LostItem).count()
     }
 
-
 @router.get("/total-found-items")
 def total_found_items():
 
@@ -44,7 +43,6 @@ def total_found_items():
         "total_found_items":
         db.query(FoundItem).count()
     }
-
 
 @router.get("/successful-claims")
 def successful_claims():
@@ -58,8 +56,6 @@ def successful_claims():
         ).count()
     }
   
-  from services.matching_service import is_match
-
 @router.get("/matches")
 def get_matches():
 
